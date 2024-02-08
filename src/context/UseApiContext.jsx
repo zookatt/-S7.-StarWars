@@ -4,7 +4,7 @@ import { apiContext } from "./apiContext";
 const UseApiContext = ({ children }) => {
     const [starships, setStarships] = useState([]);
 
-    let url = "https://swapi.py4e.com/api/starships/?page=1";
+    let url = "https://swapi.py4e.com/api/starships/";
 
     useEffect(() => {
         const callApi = async () => {
@@ -21,9 +21,9 @@ const UseApiContext = ({ children }) => {
                         results.map(async (starship) => {
                             const { name, url } = starship;
                             const responseStarship = await fetch(url);
-                            const { model } = await responseStarship.json();
+                            const { model, cost_in_credits, max_atmosphering_speed, manufacturer, length, crew } = await responseStarship.json();
                             console.log(`${name}\n${model}`);
-                            return { name, model };
+                            return { name, model, cost_in_credits, max_atmosphering_speed, manufacturer, length, crew };
                         })
                     );
 
