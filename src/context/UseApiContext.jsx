@@ -3,56 +3,55 @@ import { apiContext } from "./apiContext";
 
 const UseApiContext = ({ children }) => {
     const [starships, setStarships] = useState([]);
+    const [selectedStarship, setSelectedStarship] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
 
-    let url = "https://swapi.py4e.com/api/starships/";
 
+
+    // llamada a api
     useEffect(() => {
-        const callApi = async () => {
-            let goToNextPage = true;
-            const fetchedStarships = [];
+        const callApiStarships = async () => {
+            const urlStarships = "https://swapi.py4e.com/api/starships/?page=1";
 
-            while (goToNextPage) {
-                try {
-                    const response = await fetch(url);
+            try {
+                const response = await fetch(urlStarships);
+                const { results } = await response.json();
 
-                    const { results, next } = await response.json();
+                const starshipDetails = await Promise.all(
+                    results.map(async (starship) => {
+                        const { name, url } = starship;
+                        const responseStarship = await fetch(url);
+                        const { model, cost_in_credits, max_atmosphering_speed, manufacturer, length, crew } = await responseStarship.json();
+                        console.log(`${name}\n${model}\n${url}`);
+                        return { id: starship.url.split("/").slice(-2, -1)[0], name, model, url, cost_in_credits, max_atmosphering_speed, manufacturer, length, crew };
+                    })
+                );
 
-                    const starshipDetails = await Promise.all(
-                        results.map(async (starship) => {
-                            const { name, url } = starship;
-                            const responseStarship = await fetch(url);
-                            const { model, cost_in_credits, max_atmosphering_speed, manufacturer, length, crew } = await responseStarship.json();
-                            console.log(`${name}\n${model}`);
-                            return { name, model, cost_in_credits, max_atmosphering_speed, manufacturer, length, crew };
-                        })
-                    );
+                setStarships(starshipDetails);
 
-                    fetchedStarships.push(...starshipDetails);
 
-                    if (next) {
-                        url = next;
-                    } else {
-                        goToNextPage = false;
-                    }
-
-                } catch (error) {
-                    console.log(error);
-                    goToNextPage = false;
-                }
+            } catch (error) {
+                console.log(error);
             }
-            setStarships(fetchedStarships);
         };
 
-        callApi();
+        callApiStarships();
     }, []);
 
 
+    // handlers
+    const handleClick = (starship) => {
+        setSelectedStarship(starship);
+        const imageUrl = `https://starwars-visualguide.com/assets/img/starships/${starship.id}.jpg`;
+        setImageUrl(imageUrl);
+    };
 
     return (
-        <apiContext.Provider value={{ starships }}>
+        <apiContext.Provider value={{ starships, handleClick, selectedStarship, imageUrl }}>
             {children}
         </apiContext.Provider>
     );
 };
+
 
 export default UseApiContext;

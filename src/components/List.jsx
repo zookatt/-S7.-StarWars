@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { apiContext } from "../context/apiContext";
+import StarshipData from "./StarshipData";
 
 
 function List() {
 
-    const { starships } = useContext(apiContext);
+    const { starships, handleClick, selectedStarship } = useContext(apiContext);
 
 
     const lineStarshipStyle = {
@@ -17,15 +18,18 @@ function List() {
         fontFamily: "'Roboto', sans-serif",
     };
 
+
+
     return (
 
         <>
+            {selectedStarship && <StarshipData />}
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-12">
                         {starships && starships.map((starship, index) => (
-                            <div key={index}>
-                                <p style={lineStarshipStyle}>
+                            <div key={index} onClick={() => handleClick(starship)}>
+                                <p style={lineStarshipStyle} >
                                     {starship.name.toUpperCase()}
                                     <br />
                                     {starship.model}
@@ -35,6 +39,7 @@ function List() {
                     </div>
                 </div>
             </div>
+
         </>
 
     );

@@ -11,7 +11,7 @@ function App() {
     <UseApiContext>
       <Header />
       <Menu />
-      <StarshipData />
+      {/* <StarshipData /> */}
       <List />
     </UseApiContext>
   );

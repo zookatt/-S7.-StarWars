@@ -1,14 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { apiContext } from "../context/apiContext";
 import star from "../assets/star.webp"
+
 export default function StarshipData() {
 
-    const { starships } = useContext(apiContext);
-    const firstStarship = starships[4];
+    const { selectedStarship, imageUrl } = useContext(apiContext);
 
-    if (!starships || starships.length === 0) {
-        return <div className="container"><p>Loading...</p></div>;
-    }
+
     const fileStarshipStyle = {
 
         border: "1px solid #1111",
@@ -33,28 +31,28 @@ export default function StarshipData() {
             <div className="container mt-5" >
                 <div style={dataStyle}>
                     <div style={{ height: "3em", borderTop: "1px solid #8A8A8A", borderBottom: "1px solid #8A8A8A" }}>
-                        <h3 className="ms-3 mt-1">STARSHIP</h3>
+                        <h3 className="ms-3 mt-1" style={{ color: "#8A8A8A" }}>STARSHIP</h3>
                     </div>
                     <div className="row mt-5">
 
                         <div className="col">
-                            <p>IMG</p>
+                            <img src={imageUrl} alt="" />
                         </div>
 
 
                         <div className="col" style={fileStarshipStyle}>
-                            <h4>{firstStarship.name.toUpperCase()}</h4>
+                            <h4 className="fs-3">{selectedStarship && selectedStarship.name}</h4>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi laudantium deserunt quod dolor? Nostrum modi autem porro similique laboriosam id cupiditate </p>
                             <div className="row">
                                 <div className="col">
-                                    <p>Model:{firstStarship.model} </p>
-                                    <p>Cost in credits:{firstStarship.cost_in_credits} </p>
-                                    <p>Atmospheric Speed:{firstStarship.max_atmosphering_speed}</p>
+                                    <p>Model: {selectedStarship.model} </p>
+                                    <p>Cost in credits: {selectedStarship.cost_in_credits} </p>
+                                    <p>Atmospheric Speed: {selectedStarship.max_atmosphering_speed}</p>
                                 </div>
                                 <div className="col">
-                                    <p>Manufacturer:{firstStarship.manufacturer} </p>
-                                    <p>Length:{firstStarship.length}</p>
-                                    <p>Crew: {firstStarship.crew}</p>
+                                    <p>Manufacturer: {selectedStarship.manufacturer} </p>
+                                    <p>Length: {selectedStarship.length}</p>
+                                    <p>Crew: {selectedStarship.crew}</p>
                                 </div>
                             </div>
                         </div>
