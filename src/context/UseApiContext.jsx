@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { apiContext } from "./apiContext";
+import nopicture from "../assets/nopicture.png";
 
 const UseApiContext = ({ children }) => {
     const [starships, setStarships] = useState([]);
@@ -47,9 +48,19 @@ const UseApiContext = ({ children }) => {
     //handler para imagen de nave
     const handleClick = (starship) => {
         setSelectedStarship(starship);
-        const imageUrl = `https://starwars-visualguide.com/assets/img/starships/${starship.id}.jpg`;
-        setImageUrl(imageUrl);
+        const starshipImageUrl = `https://starwars-visualguide.com/assets/img/starships/${starship.id}.jpg`;
+        fetch(starshipImageUrl)
+            .then(response => {
+                if (response.ok) {
+                    setImageUrl(starshipImageUrl);
+                } else {
+                    setImageUrl(nopicture);
+                }
+            })
+            .catch(() => setImageUrl(nopicture));
+
     };
+
     //handler para siguente pagina de naves
     const handleNextPage = () => {
         setPage(prevPage => prevPage + 1);
@@ -64,3 +75,5 @@ const UseApiContext = ({ children }) => {
 
 
 export default UseApiContext;
+
+

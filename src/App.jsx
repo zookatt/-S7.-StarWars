@@ -2,7 +2,6 @@ import UseApiContext from "./context/UseApiContext";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import List from "./components/List";
-import StarshipData from "./components/StarshipData";
 import Button from "./utils/Button";
 
 
