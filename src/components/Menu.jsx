@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Menu = () => {
     const [activeLink, setActiveLink] = useState("HOME");
@@ -36,11 +37,11 @@ export const Menu = () => {
                         <ul className="navbar-nav">
 
                             <li className="nav-item">
-                                <a className="nav-link" href="#" style={activeLink === "HOME" ? linkActive : linkInactive} onClick={() => setActiveLink("HOME")}>HOME</a>
+                                <Link to="/" className="nav-link" style={activeLink === "HOME" ? linkActive : linkInactive} onClick={() => setActiveLink("HOME")}>HOME</Link>
                             </li>
 
                             <li className="nav-item">
-                                <a className="nav-link" href="#" style={activeLink === "STARSHIPS" ? linkActive : linkInactive} onClick={() => setActiveLink("STARSHIPS")}>STARSHIPS</a>
+                                <Link to="/starships" className="nav-link" style={activeLink === "STARSHIPS" ? linkActive : linkInactive} onClick={() => setActiveLink("STARSHIPS")}>STARSHIPS</Link>
                             </li>
 
                         </ul>
