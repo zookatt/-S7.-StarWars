@@ -29,9 +29,9 @@ export default function Home() {
                 <div className="carousel-inner">
                     {images.map((image, index) => (
                         <div key={index} className={`carousel-item ${index === slide ? 'active' : ''}`}>
-                            <img className="d-block w-100" src={image} alt={`Slide ${index}`} />
+                            <img className="d-block w-100" src={image} alt="one" />
                             <div className="row">
-                                <div className="carousel-caption text-start text-center-sm col-lg-4">
+                                <div className="carousel-caption d-none d-md-block text-start text-center-sm col-lg-4">
                                     <div className="row ">
                                         <div className="col-12 mt-2">
                                             <h1><i>STAR WARS: THE PHANTOM MENACE</i> CELEBRATES 25 YEARS WITH RETURN TO THEATERS</h1>
@@ -53,14 +53,22 @@ export default function Home() {
                         </div>
                     ))}
                 </div>
-                <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" onClick={handleSlideShowBack}>
+                <button className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev" onClick={handleSlideShowBack}>
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-
-                </a>
-                <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" onClick={handleSlideShowGo}>
+                </button>
+                <button className="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next" onClick={handleSlideShowGo}>
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
-
-                </a>
+                </button>
+            </div>
+            <div className="row mt-3">
+                <div className="col-md-5 offset-md-3 text-center d-md-none mt-5">
+                    <div className="carousel-caption mt-5">
+                        <h1><i>STAR WARS: THE PHANTOM MENACE</i> CELEBRATES 25 YEARS WITH RETURN TO THEATERS</h1>
+                        <h4>Episode i will mark a milestone on the big screen.</h4>
+                        <button className="btn btn-warning btn-block " style={{ borderRadius: "15rem" }}>READ MORE</button>
+                        <button className="btn btn-dark btn-block ms-2" style={{ borderRadius: "15rem", border: "1px solid #fade4b", backgroundColor: "black" }}>INTERVIEW</button>
+                    </div>
+                </div>
             </div>
         </div>
     )
