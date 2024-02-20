@@ -5,7 +5,7 @@ import Button from "../utils/Button";
 
 
 function List() {
-
+    const { userLoggedIn } = useContext(apiContext);
     const { starships, handleClick, selectedStarship } = useContext(apiContext);
 
 
@@ -23,7 +23,7 @@ function List() {
 
     return (
 
-        <>
+        <> {userLoggedIn}
             {selectedStarship && <StarshipData />}
             <div className="container mt-5">
                 <div className="row">
@@ -48,3 +48,6 @@ function List() {
 }
 
 export default List;
+
+
+

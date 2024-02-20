@@ -5,8 +5,15 @@ import twitter from "../assets/twitter.png";
 import facebook from "../assets/facebook.png";
 import youtube from "../assets/youtube.png";
 import kids from "../assets/kids.svg";
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { apiContext } from "../context/apiContext";
+import { doSignOut } from "../firebase/auth";
 
 function Header() {
+    const navigate = useNavigate()
+    const { userLoggedIn } = useContext(apiContext);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-black">
             <div className="container">
@@ -49,15 +56,28 @@ function Header() {
                 </a>
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">LOG IN</a>
-                        </li>
-                        <li className="nav-item">
-                            <span className="nav-link">|</span>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">SIGN UP</a>
-                        </li>
+                        {userLoggedIn ? (
+                            <>
+                                <li className="nav-item">
+                                    <span className="nav-link">Welcome, {userLoggedIn.name}</span>
+                                </li>
+                                <li className="nav-item">
+                                    <button onClick={() => { doSignOut().then(() => { navigate('/') }) }} className='nav-link'>LOG OUT</button>
+                                </li>
+                            </>
+                        ) : (
+                            <>
+                                <li className="nav-item">
+                                    <Link to="/login" className="nav-link" >LOG IN</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <span className="nav-link">|</span>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/signup" className="nav-link">SIGN UP</Link>
+                                </li>
+                            </>
+                        )}
                     </ul>
                 </div>
 

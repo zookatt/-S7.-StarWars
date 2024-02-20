@@ -1,15 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { apiContext } from "./apiContext";
 import nopicture from "../assets/nopicture.png";
+import { auth } from "../firebase/firebase.js"
+import { onAuthStateChanged } from "firebase/auth";
+
 
 const UseApiContext = ({ children }) => {
     const [starships, setStarships] = useState([]);
     const [selectedStarship, setSelectedStarship] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
     const [page, setPage] = useState(1);
+    //auth
+    const [currentUser, setCurrentUser] = useState(null);
+    const [userLoggedIn, setUserLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(true);
 
+    const updateUserLoggedIn = (user) => {
+        setUserLoggedIn(user);
+    };
 
-    //llamar a api
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, initializeUser);
+        return unsubscribe;
+    }, [])
+
+    async function initializeUser(user) {
+        if (user) {
+            setCurrentUser({ ...user });
+        } else {
+            setCurrentUser(null);
+            setUserLoggedIn(false);
+        }
+        setLoading(false);
+    }
+
+    const value = {
+        currentUser,
+        userLoggedIn,
+        loading
+    }
+
+    //llamar a api starwars
     useEffect(() => {
 
         const callApiStarships = async () => {
@@ -67,8 +98,8 @@ const UseApiContext = ({ children }) => {
     }
 
     return (
-        <apiContext.Provider value={{ starships, handleClick, selectedStarship, imageUrl, handleNextPage, page }}>
-            {children}
+        <apiContext.Provider value={{ value, starships, handleClick, selectedStarship, imageUrl, handleNextPage, page, userLoggedIn, updateUserLoggedIn }}>
+            {!loading && children}
         </apiContext.Provider>
     );
 };
