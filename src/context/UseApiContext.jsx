@@ -14,6 +14,9 @@ const UseApiContext = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
+    ///////////////////////////////////////////////////
+    // Función para iniciar sesión
 
     const updateUserLoggedIn = (user) => {
         setUserLoggedIn(user);
@@ -47,7 +50,6 @@ const UseApiContext = ({ children }) => {
             try {
                 const response = await fetch(`https://swapi.py4e.com/api/starships/?page=${page}`);
                 const { results } = await response.json();
-
                 const starshipDetails = await Promise.all(
                     results.map(async (starship) => {
                         const { name, url } = starship;
@@ -56,25 +58,17 @@ const UseApiContext = ({ children }) => {
                         return { id: starship.url.split("/").slice(-2, -1)[0], name, model, url, cost_in_credits, max_atmosphering_speed, manufacturer, length, crew };
                     })
                 );
-
                 if (page === 1) {
                     setStarships(starshipDetails);
                 } else {
                     setStarships(prevStarships => [...prevStarships, ...starshipDetails]);
                 }
-
             } catch (error) {
                 console.log(error);
             }
-
         };
-
         callApiStarships();
-
     }, [page]);
-
-
-
     //handlers:
     //handler para imagen de nave
     const handleClick = (starship) => {
@@ -89,9 +83,7 @@ const UseApiContext = ({ children }) => {
                 }
             })
             .catch(() => setImageUrl(nopicture));
-
     };
-
     //handler para siguente pagina de naves
     const handleNextPage = () => {
         setPage(prevPage => prevPage + 1);
@@ -103,8 +95,5 @@ const UseApiContext = ({ children }) => {
         </apiContext.Provider>
     );
 };
-
-
 export default UseApiContext;
-
 

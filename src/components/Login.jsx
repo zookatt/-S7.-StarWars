@@ -98,7 +98,7 @@ const Login = () => {
                                     <div>
                                         <button type="submit"
                                             onClick={(e) => { onSubmit(e) }}
-                                            disabled={isLoggingIn} className="btn btn-dark me-2">Login</button>
+                                            className="btn btn-dark me-2">Login</button>
                                         or
                                         <Link to={'/signup'} className="btn btn-warning ms-2" >Sign Up</Link>
                                     </div>
@@ -123,4 +123,3 @@ const Login = () => {
 }
 
 export default Login
-

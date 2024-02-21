@@ -5,7 +5,7 @@ import Button from "../utils/Button";
 
 
 function List() {
-    const { userLoggedIn } = useContext(apiContext);
+
     const { starships, handleClick, selectedStarship } = useContext(apiContext);
 
 
@@ -19,11 +19,9 @@ function List() {
         fontFamily: "'Roboto', sans-serif",
     };
 
-
-
     return (
 
-        <> {userLoggedIn}
+        <>
             {selectedStarship && <StarshipData />}
             <div className="container mt-5">
                 <div className="row">
@@ -41,13 +39,10 @@ function List() {
                     <Button />
                 </div>
             </div>
-
         </>
-
     );
 }
 
 export default List;
-
 
 

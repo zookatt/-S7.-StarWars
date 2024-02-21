@@ -17,11 +17,9 @@ function Header() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-black">
             <div className="container">
-
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-
                 <div className="collapse navbar-collapse justify-content-start align-self-start" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item me-2">
@@ -50,9 +48,7 @@ function Header() {
                     </ul>
                 </div>
                 <a className="navbar-brand me-5" href="#">
-
                     <img className="img-fluid mx-auto d-block" src={logo} alt="Navbar" style={{ maxWidth: '30%' }} />
-
                 </a>
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul className="navbar-nav">
@@ -85,5 +81,4 @@ function Header() {
         </nav>
     );
 }
-
 export default Header;
