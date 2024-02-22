@@ -2,12 +2,13 @@ import { useContext } from "react";
 import { apiContext } from "../context/apiContext";
 import { doSignInWithEmailAndPassword } from "../firebase/auth";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import smallIcons from "../assets/smallIcons.png";
 
 const Login = () => {
 
     const { updateUserLoggedIn } = useContext(apiContext);
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,6 +36,7 @@ const Login = () => {
                 setAlertMessage(`Welcome back to Star Wars, jedi ${email}!`);
                 setAlertType('alert-success');
                 setShowAlert(true);
+                navigate('/starships');
             } catch (error) {
                 setAlertMessage('Jedi with this email o password does not exist. Please, sign up.');
                 setAlertType('alert-danger');

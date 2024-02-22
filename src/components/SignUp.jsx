@@ -1,12 +1,13 @@
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth"
 import { useState, useContext } from "react";
 import { apiContext } from "../context/apiContext";
-import { Navigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import smallIcons from "../assets/smallIcons.png";
 
 const SignUp = () => {
 
     const { updateUserLoggedIn } = useContext(apiContext);
+    const navigate = useNavigate();
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -35,6 +36,7 @@ const SignUp = () => {
                 setAlertMessage('Welcome to Star Wars, new jedi!');
                 setAlertType('alert-success');
                 setShowAlert(true);
+                navigate('/starships');
             } catch (error) {
                 setAlertMessage('Jedi with this email has already exists. Please, try again.');
                 setAlertType('alert-warning');

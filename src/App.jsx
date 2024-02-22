@@ -1,5 +1,4 @@
 import UseApiContext from "./context/UseApiContext";
-import { useState } from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from "./components/Header";
 import Menu from "./components/Menu";

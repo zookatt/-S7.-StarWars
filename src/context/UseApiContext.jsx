@@ -14,9 +14,8 @@ const UseApiContext = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState(null);
-    ///////////////////////////////////////////////////
-    // Función para iniciar sesión
+
+
 
     const updateUserLoggedIn = (user) => {
         setUserLoggedIn(user);
